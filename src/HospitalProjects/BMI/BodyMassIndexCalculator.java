@@ -23,52 +23,53 @@ public class BodyMassIndexCalculator {
     }
 
     public void setAge(int age){
-        this.age = age;
         System.out.println("How old are you?");
         age = input.nextInt();
+        this.age = age;
     }
 
     public void setGender(String gender){
-
-        this.gender = gender;
         System.out.println("Enter your gender");
         gender = input.next();
+        this.gender = gender;
     }
 
 
     public void setHeight(double height){
-        this.height = height;
         System.out.println("Enter height in meters");
         height = input.nextDouble();
+        this.height = height;
         }
 
 
 
-    public double height() {
+    public double getHeight() {
         return height;
     }
+    public double getWeight(){
+        return weight;
+    }
     public void setWeight(double weight){
-        this.weight = weight;
         System.out.println("Enter Weight in kilograms");
         weight = input.nextDouble();
+        this.weight = weight;
     }
 
     public void setFullInfo(){
         setName(name);
         setAge(age);
         setGender(gender);
-        setHeight(height);
+       setHeight(height);
         setWeight(weight);
 
     }
-    @Override
     public String toString(){
         System.out.println();
         return (name + "\n"+ "Your BMI is " + this.bmi());
     }
     public double bmi() {
 
-        double bmi = weight / (Math.pow(height, 2));
+        double bmi = getWeight() / (Math.pow(getHeight(), 2));
 
 
         if (bmi < 18.5) {
@@ -88,6 +89,29 @@ public class BodyMassIndexCalculator {
         System.out.println("Overweight: \tbetween 25 and 29.9");
         System.out.println("Obese: \t\t30 or greater");
 return bmi;
+    }
+//    public void calculateHeight(){
+//        System.out.println("Enter Height in meters or feet");
+//        double height = input.nextDouble();
+//
+//        switch ((int) height){
+//            case 1:
+//                System.out.println("Enter height in meters");
+//                height = input.nextInt();
+//                height = height * (1.0);
+//                this.height = height;
+//
+//            case 2:
+//                System.out.println("Enter height in foot");
+//                height = input.nextInt();
+//                height = height*(0.305);
+//                this.height = height;
+//
+//
+//        }
+//    }
+
+    public void calculateWeight(){
 
     }
     public static void main(String[] args) {
@@ -107,6 +131,8 @@ return bmi;
                     bmiCalculator.setFullInfo();
                     System.out.println();
                     System.out.println(bmiCalculator);
+                    System.out.println(bmiCalculator.bmi());
+
 
                 }
                 case 2 -> {
