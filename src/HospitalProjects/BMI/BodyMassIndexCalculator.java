@@ -23,6 +23,7 @@ public class BodyMassIndexCalculator {
     }
 
     public void setAge(int age){
+
         System.out.println("How old are you?");
         age = input.nextInt();
         this.age = age;
@@ -33,34 +34,20 @@ public class BodyMassIndexCalculator {
         gender = input.next();
         this.gender = gender;
     }
-
-
-    public void setHeight(double height){
-        System.out.println("Enter height in meters");
-        height = input.nextDouble();
-        this.height = height;
-        }
-
-
-
     public double getHeight() {
         return height;
     }
     public double getWeight(){
         return weight;
     }
-    public void setWeight(double weight){
-        System.out.println("Enter Weight in kilograms");
-        weight = input.nextDouble();
-        this.weight = weight;
-    }
+
 
     public void setFullInfo(){
         setName(name);
         setAge(age);
         setGender(gender);
-       setHeight(height);
-        setWeight(weight);
+       calculateHeight();
+       calculateWeight();
 
     }
     public String toString(){
@@ -90,34 +77,68 @@ public class BodyMassIndexCalculator {
         System.out.println("Obese: \t\t30 or greater");
 return bmi;
     }
-//    public void calculateHeight(){
-//        System.out.println("Enter Height in meters or feet");
-//        double height = input.nextDouble();
-//
-//        switch ((int) height){
-//            case 1:
-//                System.out.println("Enter height in meters");
-//                height = input.nextInt();
-//                height = height * (1.0);
-//                this.height = height;
-//
-//            case 2:
-//                System.out.println("Enter height in foot");
-//                height = input.nextInt();
-//                height = height*(0.305);
-//                this.height = height;
-//
-//
-//        }
-//    }
+    public void calculateHeight(){
+        System.out.println("""
+                Enter Height in meters or foot
+                Press 1 to enter height in meters
+                Press 2 to enter height in foot
+                """);
 
-    public void calculateWeight(){
+        int heightInput = input.nextInt();
 
+        switch (heightInput){
+            case 1-> {
+
+                System.out.println("Enter height in meters");
+                height = input.nextDouble();
+//                setHeight(height);
+                System.out.println(height);
+            }
+
+            case 2-> {
+                System.out.println("Enter height in foot");
+                height = input.nextDouble();
+//                setHeight(height);
+                height = height * (0.305);
+                System.out.println(height);
+            }
+            default-> System.out.println();
+
+        }
+    }
+
+    public void calculateWeight() {
+        System.out.println("""
+                Enter Weight in kg or pounds
+                Press 1 to enter weight in pound
+                Press 2 to enter weight in kg
+                """);
+
+        int weightInput = input.nextInt();
+
+        switch (weightInput) {
+            case 1 -> {
+
+                System.out.println("Enter weight in kg");
+                weight = input.nextDouble();
+                System.out.println(weight);
+            }
+
+            case 2 -> {
+                System.out.println("Enter weight in pounds");
+                weight = input.nextDouble();
+                weight = weight * (2.20462);
+                System.out.println(weight);
+            }
+            default -> System.out.println();
+
+        }
     }
     public static void main(String[] args) {
         BodyMassIndexCalculator bmiCalculator = new BodyMassIndexCalculator();
         Scanner userInput = new Scanner(System.in);
         int input;
+        boolean quit = false;
         System.out.println("""
                 Welcome to Jay's Bmi calculator
                 Best Wishes
@@ -125,7 +146,7 @@ return bmi;
                 please press 1 to continue or 2 to cancel
                 """);
         input = userInput.nextInt();
-        while (input != 2) {
+        while (!quit) {
             switch (input) {
                 case 1 -> {
                     bmiCalculator.setFullInfo();
@@ -133,12 +154,9 @@ return bmi;
                     System.out.println(bmiCalculator);
                     System.out.println(bmiCalculator.bmi());
 
-
+break;
                 }
-                case 2 -> {
-                    input = 1;
-
-                }
+                case 2 -> quit = true;
 
 
             }
