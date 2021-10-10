@@ -3,10 +3,11 @@ package CheckOutApp;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Cart {
-    ArrayList<Product> items = new ArrayList<>();
+   private ArrayList<Product> items = new ArrayList<>();
     Product item;
 
     public ArrayList<Product> getItems() {
@@ -21,20 +22,23 @@ public class Cart {
         }
 
 
-    public void setItems(ArrayList<Product> items) {
-        this.items = items;
-    }
+//    public void setItems(ArrayList<Product> items) {
+//        this.items = items;
+//    }
 
     public Product getItem() {
+
         return item;
     }
 
-    public void setItem(Product item) {
-        this.item = item;
-    }
+//    public void setItem(Product item) {
+//        item=new Product();
+//        this.item = item;
+//    }
 
-    public void addItems(Product item) {
-        this.items.add(item);
+    public void addItems(String nameOfItem, BigDecimal amountOfItem, int numberOfItems) {
+        this.items.add(new Product(nameOfItem, numberOfItems, amountOfItem));
+//        System.out.println(order);
     }
 
     public boolean changeItem(Product item, Product newItem) {
@@ -43,8 +47,8 @@ public class Cart {
             System.out.println("Choose what's in your cart");
             return false;
         } else {
-            removeItems(item);
-            addItems(newItem);
+            items.remove(item);
+            items.add(newItem);
             System.out.println(item + "was replaced with" + newItem);
             return true;
         }
@@ -54,10 +58,11 @@ public class Cart {
         return this.items.indexOf(item);
     }
 
-    private boolean removeItems(Product itemName) {
+    public boolean removeItems(String itemName) {
         boolean foundItem = false;
-        if (itemName.equals(item.getNameOfItem())) {
-            items.remove(itemName);
+        if (itemName.equalsIgnoreCase(item.getNameOfItem())) {
+            Product itemToDelete= new Product(itemName);
+            items.remove(itemToDelete);
             foundItem = true;
         }
         System.out.println("The Product you are trying to remove is not in your cart ");
@@ -72,6 +77,16 @@ public class Cart {
         }
         return sum;
     }
+    public int getTotalProducts(){
+        return items.size();
+    }
+    public void printItems() {
+        for (Product itemsToBuy : items) {
+                System.out.println( itemsToBuy.getNameOfItem() + " - " + itemsToBuy.getNumberOfItems() + " - " + itemsToBuy.getAmountOfItem());
+            }
+
+    }
+
 
 }
 

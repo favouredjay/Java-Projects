@@ -32,6 +32,9 @@ public class Product {
 
     }
 
+
+
+
     public String getNameOfItem() {
         return nameOfItem;
     }
@@ -45,25 +48,22 @@ public class Product {
     }
 
     public void setNumberOfItems(int numberOfItems) {
-        if(numberOfItems < 1) {
+        if(numberOfItems >0) {
             this.numberOfItems = numberOfItems;
         }
     }
 
+
     public BigDecimal getAmountOfItem() {
         return amountOfItem;
     }
+    public void setAmountOfItem(BigDecimal amountOfItem){
+        this.amountOfItem = amountOfItem;
+    }
 
-    public void setAmountOfItem(BigDecimal amountOfItem, long numberOfItems) {
-        BigDecimal amountAndQuantity = BigDecimal.ZERO;
-        if(numberOfItems < 1){
-            System.out.println("No item in your cart");
-        }
-        else{
-           amountAndQuantity = amountOfItem.multiply(BigDecimal.valueOf(numberOfItems));
+    public BigDecimal getAmountOfOneOrMoreItems(BigDecimal amountOfItem, long numberOfItems) {
+        return amountOfItem.multiply(BigDecimal.valueOf(numberOfItems));
 
-        }
-        this.amountOfItem = amountAndQuantity;
     }
 
 
