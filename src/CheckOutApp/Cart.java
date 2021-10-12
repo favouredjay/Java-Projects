@@ -7,38 +7,44 @@ import java.util.Arrays;
 
 
 public class Cart {
-   private ArrayList<Product> items = new ArrayList<>();
+    private ArrayList<Product> items = new ArrayList<>();
     Product item;
 
     public ArrayList<Product> getItems() {
         return items;
     }
-    public String getItemByName(String name) {
-//            return items.get(number);
-        return item.getNameOfItem();
-        }
-        public Product getItemByIndex(int number){
-        return  items.get(number);
+
+    public Product getItemByName(String name) {
+        int position = findItem(name);
+        if(position >= 0){
+            return this.items.get(position);
         }
 
+        return null;
+    }
 
-//    public void setItems(ArrayList<Product> items) {
-//        this.items = items;
-//    }
+    public Product getItemByIndex(int number) {
+        return items.get(number);
+    }
+
+
+    public void setItems(ArrayList<Product> items) {
+        this.items = items;
+    }
 
     public Product getItem() {
 
         return item;
     }
 
-//    public void setItem(Product item) {
-//        item=new Product();
-//        this.item = item;
-//    }
+    public void setItem(Product item) {
+        item=new Product();
+        this.item = item;
+    }
 
     public void addItems(String nameOfItem, BigDecimal amountOfItem, int numberOfItems) {
         this.items.add(new Product(nameOfItem, numberOfItems, amountOfItem));
-//        System.out.println(order);
+
     }
 
     public boolean changeItem(Product item, Product newItem) {
@@ -49,7 +55,7 @@ public class Cart {
         } else {
             items.remove(item);
             items.add(newItem);
-            System.out.println(item + "was replaced with" + newItem);
+
             return true;
         }
     }
@@ -57,38 +63,53 @@ public class Cart {
     private int findItem(Product item) {
         return this.items.indexOf(item);
     }
+    private int findItem(String itemName){
+        for (int i = 0; i< items.size(); i++){
+            Product itemToBuy = this.items.get(i);
+            if(itemName.equalsIgnoreCase(itemToBuy.getNameOfItem())){
+                return i;
+            }
+        }return -1;
+    }
 
-    public boolean removeItems(String itemName) {
-        boolean foundItem = false;
-        if (itemName.equalsIgnoreCase(item.getNameOfItem())) {
-            Product itemToDelete= new Product(itemName);
-            items.remove(itemToDelete);
-            foundItem = true;
+    public boolean removeItems(Product product) {
+
+        int position = findItem(product);
+        if(position <= 0){
+            System.out.println(product.getNameOfItem() + " not found");
+            return false;
         }
-        System.out.println("The Product you are trying to remove is not in your cart ");
-        return !foundItem;
+        this.items.remove(position);
+        System.out.println(product.getNameOfItem() + "was deleted");
+        return true;
+
     }
 
     public BigDecimal calculateTotal() {
         BigDecimal sum = BigDecimal.ZERO;
 
         for (int i = 0; i < items.size(); i++) {
-           sum = sum.add(item.getAmountOfItem());
+
+            sum = sum.add(item.getAmountOfOneOrMoreItems());
         }
         return sum;
     }
-    public int getTotalProducts(){
+
+    public int getTotalProducts() {
         return items.size();
     }
+
     public void printItems() {
         for (Product itemsToBuy : items) {
-                System.out.println( itemsToBuy.getNameOfItem() + " - " + itemsToBuy.getNumberOfItems() + " - " + itemsToBuy.getAmountOfItem());
-            }
+            System.out.println(itemsToBuy.getNameOfItem() + " - " + itemsToBuy.getNumberOfItems() + " - " + itemsToBuy.getAmountOfItem());
+        }
 
     }
-
-
 }
+
+
+
+
 
 
 

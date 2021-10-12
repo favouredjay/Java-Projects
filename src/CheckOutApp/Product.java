@@ -61,30 +61,36 @@ public class Product {
         this.amountOfItem = amountOfItem;
     }
 
-    public BigDecimal getAmountOfOneOrMoreItems(BigDecimal amountOfItem, long numberOfItems) {
-        return amountOfItem.multiply(BigDecimal.valueOf(numberOfItems));
+    public BigDecimal getAmountOfOneOrMoreItems() {
+        return getAmountOfItem().multiply(BigDecimal.valueOf(getNumberOfItems()));
 
     }
 
 
-@Override
-    public String toString(){
-        Cart shoppingCart = new Cart();
-        return "Maven Supermarket Teller\n"+
-               "______________________________________________\n" +
-               "                                   " + date.toString() + "\n"+
-               "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-                "ITEMS " +" Amount per Item " + " Quantity "+   " Total Amount \n"+
-               getNameOfItem()+ " - " + amountOfItem + " * " + getNumberOfItems() + getAmountOfItem() +"\n"+
-               "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+ "\n" +
-               "SUB-TOTAL                                 "+ shoppingCart.calculateTotal() + "\n"+
-               "Tax                                       "+ "\n"+
-               "balance                                   ";
+
+//@Override
+//    public String toString(){
+//        Cart shoppingCart = new Cart();
+//        return  "Maven Supermarket Teller\n"+
+//               "______________________________________________\n" +
+//               "                                   " + date.toString() + "\n"+
+//               "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+//                "ITEMS " +" Amount per Item " + " Quantity "+   " Total Amount \n"+
+//               getNameOfItem()+ " - " + amountOfItem + " * " + getNumberOfItems() + getAmountOfItem() +"\n"+
+//               "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+ "\n" +
+//               "SUB-TOTAL                                 "+ shoppingCart.calculateTotal() + "\n"+
+//               "Tax                                       "+ "\n"+
+//               "balance                                   ";
 
 
+    @Override
+    public String toString() {
+        return String.format("Product Name: %s%n Price: %.2f%n Quantity: %d%n Cost: %.2f%n"
+                ,getNameOfItem(),getAmountOfItem(),getNumberOfItems(),getAmountOfOneOrMoreItems());
+    }
 
 
 
     }
 
-}
+

@@ -1,5 +1,6 @@
 package CheckOutApp;
 
+
 import java.math.BigDecimal;
 
 import java.util.Scanner;
@@ -28,6 +29,7 @@ public class CheckOut {
                 press 3 to remove an item
                 press 4 to show items in the cart
                 press 5 to Pay for items and checkout
+                press 6 to leave
 
                 """);
     }
@@ -70,25 +72,36 @@ public class CheckOut {
                         shoppingCart.addItems(addItem, amount, quantity);
                         System.out.println("Enter yes to add more products and no to do other things");
                         String decision = input.next();
-                        switch (decision) {
-                            case "yes" -> yn = false;
-                            case "no" -> {
-                                yn = true;
-                                printOthers();
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + decision);
-                        }
 
+                          if(decision.equalsIgnoreCase("yes")) {
+
+                          }
+                          else if (decision.equalsIgnoreCase("no")){
+                                    yn = true;
+
+                          }else {
+                              System.out.println("You can only choose yes or no");
+                              System.out.println("Enter yes to add more products and no to do other things");
+                              decision = input.next();
+
+                              yn = false;
+
+
+                          }
+
+//                        System.out.println(decision);
+//                        System.out.println(yn);
 
                     }
-                    shoppingCart.printItems();
+//                    shoppingCart.printItems();
+
                     break;
                 case 2:
                     System.out.println("Items in your cart are: \n ");
                     shoppingCart.printItems();
-                    System.out.println("Enter item number");
-                    int currentItem = input.nextInt();
-                    Product oldItem = shoppingCart.getItemByIndex(currentItem);
+                    System.out.println("Enter item Name");
+                    String currentItem = input.next();
+                    Product oldItem = shoppingCart.getItemByName(currentItem);
                     Product newItem = new Product();
                     System.out.println("Enter the name of the Product you want to buy");
                     String nameOfProduct = input.next();
@@ -100,22 +113,58 @@ public class CheckOut {
                     int quantity = input.nextInt();
                     newItem.setNumberOfItems(quantity);
 
-                    shoppingCart.changeItem(oldItem, newItem);
+                    if(shoppingCart.changeItem(oldItem, newItem)){
+                        System.out.println(oldItem.toString() + " changed for " + newItem);
+                        break;
+                    }
 
                 case 3:
                     System.out.println("Enter item to delete");
-                    String nameOfItemToDelete = input.nextLine();
-                    shoppingCart.removeItems(nameOfItemToDelete);
+                    String nameOfItemToDelete = input.next();
+
+                        if(nameOfItemToDelete.equalsIgnoreCase(items.getNameOfItem())){
+                            shoppingCart.removeItems(items);
+
+                        System.out.println("You removed " + nameOfItemToDelete);
+                        System.out.println("You still have ");
+                        shoppingCart.printItems();
+                        break;
+                    }
+                    System.out.println("Enter Existing contact");
+                    String nameToDelete = input.next();
+                    Product existingItem = shoppingCart.getItemByName(nameToDelete);
+                    if(existingItem == null){
+                        System.out.println("item not found");
+                        return;
+                    }
+                    if(shoppingCart.removeItems(existingItem)){
+                        System.out.println("successful");
+                    }
+                    else {
+                        System.out.println("unable to delete contact");
+                    }
+
 
                 case 4:
                     shoppingCart.printItems();
+                    break;
 
                 case 5:
+                    items.toString();
+                    System.out.println("Your Total is " + shoppingCart.calculateTotal());
+                    System.out.println("Please pay for your goods");
+                    BigDecimal amountPaid = input.nextBigDecimal();
+                    BigDecimal balance = amountPaid.subtract(shoppingCart.calculateTotal());
+                    System.out.println("Your balance is " + balance);
+                    System.out.println();
 
-                case 6:
+                    case 6:
                     System.out.println("Thank you for shopping with us"); quit = true;
 
             }
+            printOthers();
+            shoppingChoice = input.nextInt();
+
         }
     }
 }
