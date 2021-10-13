@@ -90,7 +90,7 @@ public class Cart {
 
         for (int i = 0; i < items.size(); i++) {
 
-            sum = sum.add(item.getAmountOfOneOrMoreItems());
+            sum = sum.add(items.get(i).getAmountOfOneOrMoreItems());
         }
         return sum;
     }

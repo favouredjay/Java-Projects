@@ -89,11 +89,9 @@ public class CheckOut {
 
                           }
 
-//                        System.out.println(decision);
-//                        System.out.println(yn);
 
                     }
-//                    shoppingCart.printItems();
+
 
                     break;
                 case 2:
@@ -119,18 +117,8 @@ public class CheckOut {
                     }
 
                 case 3:
-                    System.out.println("Enter item to delete");
-                    String nameOfItemToDelete = input.next();
 
-                        if(nameOfItemToDelete.equalsIgnoreCase(items.getNameOfItem())){
-                            shoppingCart.removeItems(items);
-
-                        System.out.println("You removed " + nameOfItemToDelete);
-                        System.out.println("You still have ");
-                        shoppingCart.printItems();
-                        break;
-                    }
-                    System.out.println("Enter Existing contact");
+                    System.out.println("Enter Existing item");
                     String nameToDelete = input.next();
                     Product existingItem = shoppingCart.getItemByName(nameToDelete);
                     if(existingItem == null){
@@ -141,7 +129,7 @@ public class CheckOut {
                         System.out.println("successful");
                     }
                     else {
-                        System.out.println("unable to delete contact");
+                        System.out.println("unable to delete item");
                     }
 
 
@@ -150,16 +138,16 @@ public class CheckOut {
                     break;
 
                 case 5:
-                    items.toString();
+
                     System.out.println("Your Total is " + shoppingCart.calculateTotal());
                     System.out.println("Please pay for your goods");
                     BigDecimal amountPaid = input.nextBigDecimal();
                     BigDecimal balance = amountPaid.subtract(shoppingCart.calculateTotal());
                     System.out.println("Your balance is " + balance);
                     System.out.println();
-
-                    case 6:
                     System.out.println("Thank you for shopping with us"); quit = true;
+
+
 
             }
             printOthers();

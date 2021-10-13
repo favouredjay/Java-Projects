@@ -82,5 +82,29 @@ assertEquals(2, shoppingCart.getTotalProducts() );
         assertEquals(2, shoppingCart.getTotalProducts());
 
     }
+    @Test
+    void testThatOneItemCanBePaidFor(){
+        Cart shoppingCart = new Cart();
+
+        Product item = new Product("Mango", 2, BigDecimal.valueOf(1000));
+        shoppingCart.getItems().add(item);
+
+        assertEquals(BigDecimal.valueOf(2000), item.getAmountOfOneOrMoreItems());
+    }
+
+    @Test
+    void testThatAllTheItemsCanBeCalculated(){
+        Cart shoppingCart = new Cart();
+
+        Product mango = new Product("Mango", 2, BigDecimal.valueOf(1000));
+        Product pine = new Product("Pine", 2, BigDecimal.valueOf(1000));
+        shoppingCart.getItems().add(mango);
+        shoppingCart.getItems().add(pine);
+        assertEquals(BigDecimal.valueOf(2000), mango.getAmountOfOneOrMoreItems());
+        assertEquals(BigDecimal.valueOf(2000), pine.getAmountOfOneOrMoreItems());
+        assertEquals(BigDecimal.valueOf(4000), shoppingCart.calculateTotal());
+
+
+    }
 
 }
