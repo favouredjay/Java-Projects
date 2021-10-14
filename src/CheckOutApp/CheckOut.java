@@ -15,8 +15,8 @@ public class CheckOut {
                 press 2 to change an item
                 press 3 to remove an item
                 press 4 to show items in the cart
-                press 5 to Pay for items and checkout
-                press 6 to leave
+                press 5 to Pay for items
+                press 6 to check out
 
                 """);
 
@@ -138,18 +138,29 @@ public class CheckOut {
                     break;
 
                 case 5:
-
+                    System.out.println(items);
                     System.out.println("Your Total is " + shoppingCart.calculateTotal());
                     System.out.println("Please pay for your goods");
                     BigDecimal amountPaid = input.nextBigDecimal();
                     BigDecimal balance = amountPaid.subtract(shoppingCart.calculateTotal());
                     System.out.println("Your balance is " + balance);
                     System.out.println();
-                    System.out.println("Thank you for shopping with us"); quit = true;
+
+
+
+                case 6:
+
+                    quit = true;
+                    System.out.println("Thank you for shopping with us");
+                    System.exit(0);
+
+
+
 
 
 
             }
+
             printOthers();
             shoppingChoice = input.nextInt();
 
