@@ -55,13 +55,14 @@ class CartTest {
         Product mango = new Product("Mango",3,  BigDecimal.valueOf(50));
         Product orange = new Product("orange", 2, BigDecimal.valueOf(100));
         Product pampers = new Product("pampers", 2, BigDecimal.valueOf(2000));
+        assertEquals(0, shoppingCart.getTotalProducts());
         shoppingCart.getItems().add(mango);
         shoppingCart.getItems().add(orange);
         shoppingCart.changeItem(orange, pampers);
         for (Product i : shoppingCart.getItems()) {
             System.out.println(i);
         }
-assertEquals(2, shoppingCart.getTotalProducts() );
+        assertEquals(2, shoppingCart.getTotalProducts() );
 
     }
     @Test
@@ -71,6 +72,7 @@ assertEquals(2, shoppingCart.getTotalProducts() );
         Product mango = new Product("Mango",3,  BigDecimal.valueOf(50));
         Product orange = new Product("orange", 2, BigDecimal.valueOf(100));
         Product pampers = new Product("pampers", 2, BigDecimal.valueOf(2000));
+        assertEquals(0, shoppingCart.getTotalProducts());
         shoppingCart.getItems().add(mango);
         shoppingCart.getItems().add(orange);
         shoppingCart.getItems().add(pampers);
