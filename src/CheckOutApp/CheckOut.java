@@ -25,11 +25,10 @@ public class CheckOut {
         System.out.println("""
                 please press 1 - 5
                 press 1 to add new contact to the cart
-                press 2 to change an item
-                press 3 to remove an item
-                press 4 to show items in the cart
-                press 5 to Pay for items and checkout
-                press 6 to leave
+                press 2 to remove an item
+                press 3 to show items in the cart
+                press 4 to Pay for items and checkout
+                press 5 to leave
 
                 """);
     }
@@ -74,7 +73,7 @@ public class CheckOut {
                         String decision = input.next();
 
                           if(decision.equalsIgnoreCase("yes")) {
-
+printOthers();
                           }
                           else if (decision.equalsIgnoreCase("no")){
                                     yn = true;
@@ -94,29 +93,8 @@ public class CheckOut {
 
 
                     break;
+
                 case 2:
-                    System.out.println("Items in your cart are: \n ");
-                    shoppingCart.printItems();
-                    System.out.println("Enter item Name");
-                    String currentItem = input.next();
-                    Product oldItem = shoppingCart.getItemByName(currentItem);
-                    Product newItem = new Product();
-                    System.out.println("Enter the name of the Product you want to buy");
-                    String nameOfProduct = input.next();
-                    newItem.setNameOfItem(nameOfProduct);
-                    System.out.println("How much is one?");
-                    BigDecimal amount = input.nextBigDecimal();
-                    newItem.setAmountOfItem(amount);
-                    System.out.println("What quantity do you want?");
-                    int quantity = input.nextInt();
-                    newItem.setNumberOfItems(quantity);
-
-                    if(shoppingCart.changeItem(oldItem, newItem)){
-                        System.out.println(oldItem.toString() + " changed for " + newItem);
-                        break;
-                    }
-
-                case 3:
 
                     System.out.println("Enter Existing item");
                     String nameToDelete = input.next();
@@ -133,11 +111,11 @@ public class CheckOut {
                     }
 
 
-                case 4:
+                case 3:
                     shoppingCart.printItems();
                     break;
 
-                case 5:
+                case 4:
                     System.out.println(items);
                     System.out.println("Your Total is " + shoppingCart.calculateTotal());
                     System.out.println("Please pay for your goods");
@@ -148,7 +126,7 @@ public class CheckOut {
 
 
 
-                case 6:
+                case 5:
 
                     quit = true;
                     System.out.println("Thank you for shopping with us");

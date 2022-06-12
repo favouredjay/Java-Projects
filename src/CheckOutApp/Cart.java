@@ -3,15 +3,15 @@ package CheckOutApp;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-
 public class Cart {
-    private ArrayList<Product> items = new ArrayList<>();
-    Product item;
+    private final ArrayList<Product>  items = new ArrayList<>();
 
     public ArrayList<Product> getItems() {
         return items;
+    }
+
+    public void addItems(String nameOfItem, BigDecimal amountOfItem, int numberOfItems) {
+        this.items.add(new Product(nameOfItem, numberOfItems, amountOfItem));
     }
 
     public Product getItemByName(String name) {
@@ -19,45 +19,7 @@ public class Cart {
         if(position >= 0){
             return this.items.get(position);
         }
-
         return null;
-    }
-
-    public Product getItemByIndex(int number) {
-        return items.get(number);
-    }
-
-
-    public void setItems(ArrayList<Product> items) {
-        this.items = items;
-    }
-
-    public Product getItem() {
-
-        return item;
-    }
-
-    public void setItem(Product item) {
-        item=new Product();
-        this.item = item;
-    }
-
-    public void addItems(String nameOfItem, BigDecimal amountOfItem, int numberOfItems) {
-        this.items.add(new Product(nameOfItem, numberOfItems, amountOfItem));
-
-    }
-
-    public boolean changeItem(Product item, Product newItem) {
-        int foundItem = findItem(item);
-        if (foundItem < 0) {
-            System.out.println("Choose what's in your cart");
-            return false;
-        } else {
-            items.remove(item);
-            items.add(newItem);
-
-            return true;
-        }
     }
 
     private int findItem(Product item) {
@@ -73,24 +35,22 @@ public class Cart {
     }
 
     public boolean removeItems(Product product) {
-
         int position = findItem(product);
         if(position <= 0){
             System.out.println(product.getNameOfItem() + " not found");
+
             return false;
         }
         this.items.remove(position);
-        System.out.println(product.getNameOfItem() + "was deleted");
+        System.out.println(product.getNameOfItem() + " was deleted");
         return true;
-
     }
 
     public BigDecimal calculateTotal() {
         BigDecimal sum = BigDecimal.ZERO;
 
-        for (int i = 0; i < items.size(); i++) {
-
-            sum = sum.add(items.get(i).getAmountOfOneOrMoreItems());
+        for (Product product : items) {
+            sum = sum.add(product.getAmountOfOneOrMoreItems());
         }
         return sum;
     }
@@ -101,9 +61,10 @@ public class Cart {
 
     public void printItems() {
         for (Product itemsToBuy : items) {
-            System.out.println(itemsToBuy.getNameOfItem() + " - " + itemsToBuy.getNumberOfItems() + " - " + itemsToBuy.getAmountOfItem());
+            System.out.println(itemsToBuy.getNameOfItem()
+                    + " - " + itemsToBuy.getNumberOfItems() + " - "
+                    + itemsToBuy.getAmountOfItem());
         }
-
     }
 }
 
